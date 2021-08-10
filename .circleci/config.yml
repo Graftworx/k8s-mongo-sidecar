@@ -3,6 +3,12 @@ version: 2.1
 orbs:
   aws-ecr: circleci/aws-ecr@6.12.2
 
+executors:
+  arm-executor:
+    machine:
+      image: 'ubuntu-2004:202101-01'
+    resource_class: arm.medium
+
 workflows:
   build_and_push_image:
     jobs:
@@ -13,6 +19,7 @@ workflows:
                 - /feature.*/
                 - /bugfix.*/
                 - /hotfix.*/
+          executor: arm-executor
           account-url: AWS_ECR_ACCOUNT_URL
           aws-access-key-id: AWS_ACCESS_KEY_ID
           aws-secret-access-key: AWS_SECRET_ACCESS_KEY
